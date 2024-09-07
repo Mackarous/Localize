@@ -30,6 +30,18 @@ let localizedString = #Localize("This is a localized string")
 Text(#Localize("This is a localized text"))
 ```
 
+The macro will expand to the following:
+```swift
+let localizedString = #Localize("This is a localized string")
+{
+    #if SWIFT_PACKAGE
+    LocalizedStringResource("This is a localized string", bundle: .atURL(Bundle.module.bundleURL))
+    #else
+    LocalizedStringResource("This is a localized string")
+    #endif
+}()
+```
+
 ## License
 
 This package is released under MIT License.
